@@ -101,6 +101,8 @@ namespace chsarp07payrollsoftware
             if (HoursWorked > 160){
                 Overtime = overtimeRate * (HoursWorked - 160);
                 TotalPay = BasicPay + Overtime;
+            } else {
+                TotalPay = BasicPay;
             }
         }
 
@@ -123,7 +125,6 @@ namespace chsarp07payrollsoftware
 
             if (File.Exists("staff.txt"))
             {
-                string path = "staff.txt";
                 using (StreamReader sr = new StreamReader(path))
                 {
                     while (sr.EndOfStream != true)
@@ -146,6 +147,54 @@ namespace chsarp07payrollsoftware
         }
 
     }//End File Reader
+
+
+    //PaySlip Class
+    class PaySlip
+    {
+        private int month;
+        private int year;
+
+        enum MonthOfYear
+        {
+            JAN = 1, FEB = 2, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+        }
+
+        public PaySlip(int payMonth, int payYear){
+            month = payMonth;
+            year = payYear;
+        }
+
+        public void GeneratePaySlip(List<Staff> myStaff)
+        {
+            string path;
+            foreach (Staff f in myStaff)
+            {
+                path = f.NameOfStaff + ".txt";
+                StreamWriter sw = new StreamWriter(path);
+                sw.WriteLine("PAYSLIP FOR {0} {1}", (MonthOfYear)month, year);
+                sw.WriteLine("=================================");
+                sw.WriteLine("Name of Staff: {0}", f.NameOfStaff);
+                sw.WriteLine("Hours Worked: {0}", f.HoursWorked);
+                sw.WriteLine("");
+                sw.WriteLine("Basic Pay: {0:C}", f.BasicPay);
+                if (f.GetType() == typeof(Manager)){
+                    sw.WriteLine("Allowance: {0:C}", ((Manager)f).Allowance);
+                } else if (f.GetType() == typeof(Admin)){
+                    sw.WriteLine("Overtime: {O:C}", ((Admin)f).Overtime);
+                }
+                sw.WriteLine("");
+                sw.WriteLine("=================================");
+                sw.WriteLine("Total Pay: {0:C}", f.TotalPay);
+                sw.WriteLine("=================================");
+            }
+        }
+
+        public void GenerateSummary(List<Staff> myStaff)
+        {
+            
+        }
+    }
 
 
     class MainClass
