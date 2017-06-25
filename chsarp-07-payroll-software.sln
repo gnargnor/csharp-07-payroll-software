@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chsarp-07-payroll-software", "chsarp-07-payroll-software\chsarp-07-payroll-software.csproj", "{18B4BF4A-5770-435F-B115-CA473826D48A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18B4BF4A-5770-435F-B115-CA473826D48A}.Debug|x86.ActiveCfg = Debug|x86
+		{18B4BF4A-5770-435F-B115-CA473826D48A}.Debug|x86.Build.0 = Debug|x86
+		{18B4BF4A-5770-435F-B115-CA473826D48A}.Release|x86.ActiveCfg = Release|x86
+		{18B4BF4A-5770-435F-B115-CA473826D48A}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal
