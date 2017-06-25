@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chsarp-07-payroll-software", "chsarp-07-payroll-software\chsarp-07-payroll-software.csproj", "{18B4BF4A-5770-435F-B115-CA473826D48A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-07-payroll-software", "chsarp-07-payroll-software\csharp-07-payroll-software.csproj", "{18B4BF4A-5770-435F-B115-CA473826D48A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
