@@ -35,7 +35,8 @@ namespace chsarp07payrollsoftware
             hourlyRate = rate;
         }
 
-        public void CalculatePay()
+        //virtual methods can be overriden by child class methods
+        public virtual void CalculatePay()
         {
             Console.WriteLine("Calculating Pay...");
             BasicPay = hWorked * hourlyRate;
@@ -45,9 +46,39 @@ namespace chsarp07payrollsoftware
 
         public override string ToString()
         {
-            return string.Format("[Staff: \nTotalPay={0}, \nBasicPay={1}, \nNameOfStaff={2}, \nHoursWorked={3}]", TotalPay, BasicPay, NameOfStaff, HoursWorked);
+            return string.Format("[Staff:\n -TotalPay={0},\n -BasicPay={1},\n -NameOfStaff={2},\n -HoursWorked={3}]", TotalPay, BasicPay, NameOfStaff, HoursWorked);
         }
     }//End Staff Class
+
+
+    //Manager : Staff
+    class Manager : Staff
+    {   
+        //constants must be assigned a variable when defined
+        private const float managerHourlyRate = 50;
+
+        public int Allowance { get; private set; }
+
+        //pass name parameter and managerHourlyRate constant to Staff constructor, empty code block
+        public Manager(string name) : base(name, managerHourlyRate){}
+
+        //overrides virtual method of staff
+        public override void CalculatePay()
+        {
+            base.CalculatePay();
+            Allowance = 1000;
+            if (HoursWorked > 160){
+                TotalPay = BasicPay + 1000;
+            } else {
+                TotalPay = BasicPay;
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[Manager:\n -Allowance={0}]", Allowance);
+        }
+    }//End Manager Child Class
 
 
     class MainClass
