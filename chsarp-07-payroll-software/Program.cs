@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace chsarp07payrollsoftware
 {
@@ -84,7 +89,7 @@ namespace chsarp07payrollsoftware
     //Admin : Staff Class
     class Admin : Staff
     {
-        private const float overtimeRate = 15.5;
+        private const float overtimeRate = 15.5F;
         private const float adminHourlyRate = 30;
 
         public float Overtime { get; private set; }
@@ -104,6 +109,43 @@ namespace chsarp07payrollsoftware
             return string.Format("[Admin:\n -Overtime={0}]", Overtime);
         }
     }//Admin : Staff Class end
+
+
+    //File Reader Class
+    class FileReader
+    {
+        public List<Staff> ReadFile()
+        {
+            List<Staff> myStaff = new List<Staff>();
+            string[] result = new string[2];
+            string path = "staff.txt";
+            string[] separator = { ", " };
+
+            if (File.Exists("staff.txt"))
+            {
+                string path = "staff.txt";
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    while (sr.EndOfStream != true)
+                    {
+                        result = sr.ReadLine().Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                        if (result[1] == "Manager"){
+                            myStaff.Add(new Manager(result[0]));
+                        } else if (result[1] == "Admin"){
+                            myStaff.Add(new Admin(result[0]));
+                        }
+                    }
+                    sr.Close();
+                }
+            }
+            else
+            {
+                Console.WriteLine("staff.txt does not exist.");
+            }
+            return myStaff;
+        }
+
+    }//End File Reader
 
 
     class MainClass
