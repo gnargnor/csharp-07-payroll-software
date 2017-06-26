@@ -187,12 +187,31 @@ namespace chsarp07payrollsoftware
                 sw.WriteLine("=================================");
                 sw.WriteLine("Total Pay: {0:C}", f.TotalPay);
                 sw.WriteLine("=================================");
+                sw.Close();
             }
         }
 
         public void GenerateSummary(List<Staff> myStaff)
         {
-            
+            var result =
+                from staff in myStaff
+                where staff.HoursWorked < 10
+                orderby staff.NameOfStaff ascending
+                select new { staff.NameOfStaff, staff.HoursWorked };
+
+            string path = "summary.txt";
+            StreamWriter sw = new StreamWriter(path);
+            sw.WriteLine("Staff with less than 10 working hours");
+            sw.WriteLine("");
+            foreach (var f in result){
+                sw.WriteLine("Name of Staff: {0}, Hours Worked: {1}", f.NameOfStaff, f.HoursWorked);
+            }
+            sw.Close();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[PaySlip]");
         }
     }
 
@@ -201,7 +220,38 @@ namespace chsarp07payrollsoftware
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            List<Staff> myStaff = new List<Staff>();
+            FileReader fr = new FileReader();
+            int month = 0;
+            int year = 0;
+
+            while (year == 0)
+            {
+                Console.Write("\nPlease enter the year: ");
+
+                try
+                {
+                    year = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("That's not a valid year, buddy");
+                }
+            }
+
+            while (month == 0)
+            {
+                Console.Write("\nPlease enter the month: ");
+
+                try
+                {
+                    month = Convert.ToInt32(Console.ReadLine());
+                }
+                catch(FormatException)
+                {
+                    Console.WriteLine("You're doin me all wrong, friend.  1-12");
+                }
+            }
         }
     }
 }
