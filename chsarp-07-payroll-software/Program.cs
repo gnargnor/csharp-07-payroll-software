@@ -246,12 +246,39 @@ namespace chsarp07payrollsoftware
                 try
                 {
                     month = Convert.ToInt32(Console.ReadLine());
-                }
+                    if (month < 1 || month > 12)
+                    {
+                        Console.WriteLine("You're killing me buddy! 1-12!");
+                        month = 0;
+                    }
+                }    
                 catch(FormatException)
                 {
                     Console.WriteLine("You're doin me all wrong, friend.  1-12");
                 }
             }
+
+            myStaff = fr.ReadFile();
+
+            for (int i = 0; i < myStaff.Count; i++)
+            {
+                try
+                {
+                    Console.WriteLine("Enter the muber of hours worked for {1}:", myStaff[i].NameOfStaff);
+                    myStaff[i].HoursWorked = Convert.ToInt32(Console.ReadLine());
+                    myStaff[i].CalculatePay();
+                    myStaff[i].ToString();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error reading file.");
+                }
+            }
+
+            PaySlip ps = new PaySlip(month, year);
+            ps.GeneratePaySlip(myStaff);
+            ps.GenerateSummary(myStaff);
+            Console.Read();
         }
     }
 }
