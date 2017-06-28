@@ -72,10 +72,9 @@ namespace chsarp07payrollsoftware
         {
             base.CalculatePay();
             Allowance = 1000;
+
             if (HoursWorked > 160){
                 TotalPay = BasicPay + Allowance;
-            } else {
-                TotalPay = BasicPay;
             }
         }
 
@@ -101,8 +100,6 @@ namespace chsarp07payrollsoftware
             if (HoursWorked > 160){
                 Overtime = overtimeRate * (HoursWorked - 160);
                 TotalPay = BasicPay + Overtime;
-            } else {
-                TotalPay = BasicPay;
             }
         }
 
