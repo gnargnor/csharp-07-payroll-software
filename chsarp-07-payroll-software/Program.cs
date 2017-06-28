@@ -73,7 +73,7 @@ namespace chsarp07payrollsoftware
             base.CalculatePay();
             Allowance = 1000;
             if (HoursWorked > 160){
-                TotalPay = BasicPay + 1000;
+                TotalPay = BasicPay + Allowance;
             } else {
                 TotalPay = BasicPay;
             }
@@ -89,8 +89,8 @@ namespace chsarp07payrollsoftware
     //Admin : Staff Class
     class Admin : Staff
     {
-        private const float overtimeRate = 15.5F;
-        private const float adminHourlyRate = 30;
+        private const float overtimeRate = 15.5f;
+        private const float adminHourlyRate = 30f;
 
         public float Overtime { get; private set; }
         public Admin(string name) : base(name, adminHourlyRate){}
@@ -123,7 +123,7 @@ namespace chsarp07payrollsoftware
             string path = "staff.txt";
             string[] separator = { ", " };
 
-            if (File.Exists("staff.txt"))
+            if (File.Exists(path))
             {
                 using (StreamReader sr = new StreamReader(path))
                 {
@@ -181,7 +181,7 @@ namespace chsarp07payrollsoftware
                 if (f.GetType() == typeof(Manager)){
                     sw.WriteLine("Allowance: {0:C}", ((Manager)f).Allowance);
                 } else if (f.GetType() == typeof(Admin)){
-                    sw.WriteLine("Overtime: {O:C}", ((Admin)f).Overtime);
+                    sw.WriteLine("Overtime: {0:C}", ((Admin)f).Overtime);
                 }
                 sw.WriteLine("");
                 sw.WriteLine("=================================");
@@ -260,18 +260,20 @@ namespace chsarp07payrollsoftware
 
             myStaff = fr.ReadFile();
 
+
             for (int i = 0; i < myStaff.Count; i++)
             {
                 try
                 {
-                    Console.WriteLine("Enter the muber of hours worked for {1}:", myStaff[i].NameOfStaff);
+                    Console.WriteLine(myStaff[i]);
+                    Console.WriteLine("Enter the muber of hours worked for {0}:", myStaff[i].NameOfStaff);
                     myStaff[i].HoursWorked = Convert.ToInt32(Console.ReadLine());
                     myStaff[i].CalculatePay();
                     myStaff[i].ToString();
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error reading file.");
+                    Console.WriteLine("Error reading file. {0}", e);
                 }
             }
 
